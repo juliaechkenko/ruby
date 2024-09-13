@@ -1,0 +1,21 @@
+ choices = ["камінь", "ножиці", "бумага"]
+ puts "Виберіть: камінь, ножиці або бумага "
+ print " Ваш вибір: "
+ 
+ user_choice = gets.chomp.downcase
+
+ bot_choice = choices.sample
+
+ puts " Ви вибрали: #{user_choice}"
+ 
+ puts " Бот вибрав: #{bot_choice}"
+
+ if user_choice == bot_choice
+  puts "Нічия!"
+ elsif (user_choice == "камінь" && bot_choice == "ножиці") ||
+      (user_choice == "ножиці" && bot_choice == "бумага") ||
+      (user_choice == "бумага" && bot_choice == "камінь")
+  puts "Ви перемогли!"
+ else
+  puts "Ви програли!"
+ end
