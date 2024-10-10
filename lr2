@@ -1,0 +1,45 @@
+
+def is_operator?(symbol)
+  ['+', '-', '*', '/'].include?(symbol)
+end
+
+def operator_priority(op)
+  case op
+  when '+', '-'
+    return 1
+  when '*', '/'
+    return 2
+  else
+    return 0
+  end
+end
+
+def infix_to_postfix(expression)
+  result = []
+  ops_stack = []
+
+  elements = expression.split
+
+  elements.each do |element|
+    if element.match?(/\d+/)  
+      result << element
+    elsif is_operator?(element)  
+      while ops_stack.any? && operator_priority(ops_stack.last) >= operator_priority(element)
+        result << ops_stack.pop
+      end
+      ops_stack << element
+    end
+  end
+
+  result.concat(ops_stack.reverse)
+
+  result.join(' ')
+end
+
+
+print "Введіть математичний вираз: "
+input_expression = gets.chomp
+
+
+rpn_expression = infix_to_postfix(input_expression) #виводимо постфіксну нотацію
+puts "Постфіксна нотація (RPN): #{rpn_expression}"
