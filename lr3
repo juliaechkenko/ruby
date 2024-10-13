@@ -1,0 +1,67 @@
+
+def locate_raisins(pie)
+  raisin_positions = []
+  pie.each_with_index do |line, row|
+    line.chars.each_with_index do |char, col|
+      raisin_positions << [row, col] if char == 'o'
+    end
+  end
+  raisin_positions
+end
+
+
+def partition_pie(pie, raisin_positions, pieces_count)
+  partitions = []
+  current_row = 0
+
+  
+  total_rows = pie.length
+
+  raisin_count = raisin_positions.length
+
+
+  rows_per_part = total_rows / pieces_count
+
+  raisin_positions.each_with_index do |(row, _col), index|   #поділ торта на частини за наявністю родзинок
+    next_row = [current_row + rows_per_part, total_rows].min
+    next_row = [next_row, raisin_positions[index + 1][0]].min if index < raisin_count - 1
+    partitions << pie[current_row...next_row]
+    current_row = next_row
+  end
+
+  partitions << pie[current_row..-1] if current_row < total_rows
+
+  partitions
+end
+
+def divide_pie(pie, pieces_count)
+  pie_rows = pie.split("\n")
+  raisin_positions = locate_raisins(pie_rows)
+
+  divided_pie = partition_pie(pie_rows, raisin_positions, pieces_count)
+
+  divided_pie
+end
+
+pie = <<~PIE #приклад пирога
+  ........
+  ..o.....
+  ...o....
+  ........
+  .......o
+  ........
+PIE
+
+pieces_count = 4
+
+result = divide_pie(pie, pieces_count)
+
+puts "Усього частин: #{result.size}. Яку частину ви хочете переглянути?"
+selected_part = gets.to_i
+
+if selected_part >= 1 && selected_part <= result.size
+  puts "Частина #{selected_part}:"
+  puts result[selected_part - 1].join("\n")
+else
+  puts "Неправильний номер частини!"
+end
