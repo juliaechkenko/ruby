@@ -1,0 +1,16 @@
+def leap_year?(year) #перевіряє, чи є рік високосним
+  if (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0) #рік високосний, якщо він ділиться на 4, але не ділиться на 100, або якщо ділиться на 400
+    true
+  else
+    false
+  end
+end
+
+puts "Введіть рік:"
+year = gets.chomp.to_i
+
+if leap_year?(year)
+  puts "#{year} - високосний рік."
+else
+  puts "#{year} - не високосний рік."
+end
