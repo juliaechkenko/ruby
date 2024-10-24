@@ -1,0 +1,17 @@
+class Person
+  attr_accessor :name, :age
+
+  def initialize(name, age) #задає початкові значення для імені та віку
+    @name = name
+    @age = age
+  end
+
+  def celebrate_birthday #збільшує вік на один рік 
+    @age += 1
+    puts "Сьогодні день народження #{@name}! Тепер їй #{@age} років."
+  end
+end
+
+person = Person.new("Юлії", 19)
+puts "#{person.name} #{person.age} років."
+person.celebrate_birthday
