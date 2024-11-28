@@ -1,0 +1,14 @@
+def add_one_to_each_element(array)
+  result = []
+  array.each do |element|
+    result << yield(element)
+  end
+  result
+end
+
+#виклик методу з блоку
+new_array = add_one_to_each_element([1, 2, 3, 4, 5]) do |number|
+  number + 1
+end
+
+puts new_array.inspect
