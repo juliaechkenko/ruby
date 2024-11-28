@@ -1,0 +1,10 @@
+def add_one_to_each_element(array)
+  array.each do |element|
+    yield(element)
+  end
+end
+
+# Виклик методу з блоку
+add_one_to_each_element([1, 2, 3, 4, 5]) do |number|
+  puts number + 1
+end
