@@ -1,0 +1,27 @@
+#функція для обчислення факторіала
+def factorial(n)
+  (1..n).reduce(1, :*)
+end
+
+#створення масиву для збереження результатів
+results = []
+mutex = Mutex.new
+
+#створення декількох потоків для виконання обчислень
+threads = []
+5.times do |i|
+  threads << Thread.new(i + 1) do |n|
+    result = factorial(n)
+    mutex.synchronize do
+      results << result
+    end
+    puts "Factorial #{n} = #{result}"
+  end
+end
+
+#очікування завершення всіх потоків
+threads.each(&:join)
+
+#виведення всіх результатів після завершення обчислень
+puts "Result:"
+puts results.inspect
