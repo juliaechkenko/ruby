@@ -1,0 +1,34 @@
+class FactorialCalculator
+  def calculate(number)
+    validate_input(number)
+    return 1 if number <= 1 #базовий випадок
+    number * calculate(number - 1) #рекурсивний виклик
+  end
+
+  private
+
+  def validate_input(number)
+    unless number.is_a?(Integer) && number >= 0
+      raise ArgumentError, "Вхід має бути цілим невід’ємним числом."
+    end
+  end
+end
+
+def get_factorial_from_user
+  puts "Введіть ціле невід’ємне число для обчислення факторіала:"
+  input = gets.chomp 
+
+  begin
+    number = Integer(input) #перетворення на ціле число
+    calculator = FactorialCalculator.new
+    result = calculator.calculate(number)
+    puts "Факторіал числа #{number} дорівнює: #{result}."
+  rescue ArgumentError => e
+    puts "Помилка: #{e.message}"
+  rescue StandardError
+    puts "Помилка: введене значення має бути цілим числом."
+  end
+end
+
+#функцію
+get_factorial_from_user
